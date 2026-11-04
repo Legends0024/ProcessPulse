@@ -210,7 +210,7 @@
             ]);
         } catch (error) {
             console.error('Failed to load initial data:', error);
-            showErrorNotification('Failed to load data from server');
+            showErrorNotification(error.message || 'Failed to load data from server');
         }
     }
 
@@ -222,7 +222,11 @@
                 }
             });
 
-            if (!response.ok) throw new Error('Network response was not ok');
+            if (response.status === 404) {
+                showNoDeviceState();
+                return;
+            }
+            if (!response.ok) throw new Error(`Server returned HTTP ${response.status}`);
 
             const data = await response.json();
             if (data.device) {
@@ -242,12 +246,30 @@
         }
     }
 
+    function showNoDeviceState() {
+        const selected = document.getElementById('selectedDevice');
+        const deviceId = document.getElementById('deviceIdDisplay');
+        const lastUpdated = document.getElementById('lastUpdated');
+        if (selected) selected.textContent = 'No device connected';
+        if (deviceId) deviceId.textContent = '--';
+        if (lastUpdated) lastUpdated.textContent = 'Waiting for monitoring agent';
+        updateMetricsDisplay({
+            cpu_percent: null,
+            memory_percent: null,
+            disk_percent: null,
+            gpu: { available: false }
+        });
+        updateProcessTable([]);
+        updateHealthScore(null);
+        updateAnomalyStatus(null);
+    }
+
     function updateMetricsDisplay(metric) {
         if (!metric) return;
 
-        document.getElementById('liveCpu').textContent = `${metric.cpu_percent}%`;
-        document.getElementById('liveMemory').textContent = `${metric.memory_percent}%`;
-        document.getElementById('liveDisk').textContent = `${metric.disk_percent}%`;
+        document.getElementById('liveCpu').textContent = metric.cpu_percent == null ? '--' : `${metric.cpu_percent}%`;
+        document.getElementById('liveMemory').textContent = metric.memory_percent == null ? '--' : `${metric.memory_percent}%`;
+        document.getElementById('liveDisk').textContent = metric.disk_percent == null ? '--' : `${metric.disk_percent}%`;
 
         const cpuBar = document.getElementById('cpuBar');
         if (cpuBar) cpuBar.style.width = `${metric.cpu_percent}%`;
