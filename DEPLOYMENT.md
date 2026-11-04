@@ -62,6 +62,11 @@ database. Review the generated service URL and set `API_ENDPOINT` to that URL
 before starting remote agents. Render provides HTTPS for the service, so
 agents should use an `https://` endpoint.
 
+The repository includes `runtime.txt` to pin Render to Python 3.11.9. This is
+required by the currently pinned scikit-learn and NumPy wheels and prevents
+Render from trying to compile scikit-learn with an incompatible Python/NumPy
+toolchain.
+
 Deploying the web service does not install agents on remote computers. Each
 authorized computer must run its own agent and have a unique registered
 device. Remote-network operation should be tested from the actual target
