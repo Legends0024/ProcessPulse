@@ -1,0 +1,104 @@
+@media print {
+    .sidebar,
+    .topbar,
+    .section-actions,
+    .action-btn,
+    .modal,
+    .toast-container {
+        display: none !important;
+    }
+
+    .main-content {
+        padding: 0;
+        position: static;
+    }
+
+    .dashboard-section {
+        display: block !important;
+        page-break-after: always;
+    }
+
+    .card,
+    .metric-card,
+    .chart-card,
+    .settings-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+}
+
+@media (max-width: 1024px) {
+    .sidebar {
+        width: var(--sidebar-width);
+    }
+
+    .sidebar.collapsed {
+        width: var(--sidebar-width);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        --color-bg-primary: #0a0f1a;
+        --color-bg-secondary: #111827;
+        --color-bg-tertiary: #1a2332;
+        --color-bg-card: #161e2e;
+        --color-bg-hover: #1e293b;
+        --color-bg-input: #0f172a;
+        --color-border: #2a3a52;
+        --color-border-light: #3a4a62;
+        --color-text-primary: #f1f5f9;
+        --color-text-secondary: #94a3b8;
+        --color-text-muted: #64748b;
+        --color-text-inverse: #0a0f1a;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root[data-theme="light"] {
+        --color-bg-primary: #f8fafc;
+        --color-bg-secondary: #ffffff;
+        --color-bg-tertiary: #f1f5f9;
+        --color-bg-card: #ffffff;
+        --color-bg-hover: #e2e8f0;
+        --color-bg-input: #ffffff;
+        --color-border: #e2e8f0;
+        --color-border-light: #cbd5e1;
+        --color-text-primary: #0f172a;
+        --color-text-secondary: #475569;
+        --color-text-muted: #94a3b8;
+        --color-text-inverse: #ffffff;
+    }
+}
+
+.focus-visible:focus {
+    outline: none;
+}
+
+.focus-visible:focus-visible {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 2px;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stagger-in > * {
+    animation: fadeInUp var(--transition-normal) ease-out backwards;
+}
+
+.stagger-in > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-in > *:nth-child(2) { animation-delay: 50ms; }
+.stagger-in > *:nth-child(3) { animation-delay: 100ms; }
+.stagger-in > *:nth-child(4) { animation-delay: 150ms; }
+.stagger-in > *:nth-child(5) { animation-delay: 200ms; }
+.stagger-in > *:nth-child(6) { animation-delay: 250ms; }

@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="ProcessPulse - AI-Powered Operating System Health & Process Monitoring System">
+    <title>ProcessPulse - System Monitor</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="stylesheet" href="/static/css/charts.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+            <div class="sidebar-header">
+                <a href="/" class="logo" aria-label="ProcessPulse Home">
+                    <svg class="logo-icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                        <rect width="32" height="32" rx="8" fill="currentColor"/>
+                        <path d="M8 12h16M8 16h12M8 20h8" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span class="logo-text">ProcessPulse</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <ul class="nav-list" role="list">
+                    <li class="nav-item">
+                        <a href="#overview" class="nav-link active" data-section="overview" aria-current="page">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="3" y="3" width="7" height="7" rx="1"/>
+                                <rect x="14" y="3" width="7" height="7" rx="1"/>
+                                <rect x="3" y="14" width="7" height="7" rx="1"/>
+                                <rect x="14" y="14" width="7" height="7" rx="1"/>
+                            </svg>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#monitoring" class="nav-link" data-section="monitoring">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+                            </svg>
+                            <span>Live Monitoring</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#processes" class="nav-link" data-section="processes">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <rect x="2" y="3" width="20" height="14" rx="2"/>
+                                <path d="M8 21h8M12 17v4"/>
+                            </svg>
+                            <span>Process Manager</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ai" class="nav-link" data-section="ai">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/>
+                                <path d="M12 6v6l4 2"/>
+                            </svg>
+                            <span>AI Intelligence</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#history" class="nav-link" data-section="history">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span>Resource History</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#settings" class="nav-link" data-section="settings">
+                            <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="12" cy="12" r="3"/>
+                                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                            </svg>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="connection-status" id="connectionStatus">
+                    <span class="status-indicator" aria-hidden="true"></span>
+                    <span class="status-text">Connecting...</span>
+                </div>
+                <div class="sidebar-version">v1.0.0</div>
+            </div>
+        </aside>
+
+        <header class="topbar" role="banner">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar" aria-expanded="true" aria-controls="sidebar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="3" y1="6" x2="21" y2="6"/>
+                    <line x1="3" y1="18" x2="21" y2="18"/>
+                </svg>
+            </button>
+            <div class="topbar-center">
+                <h1 class="page-title" id="pageTitle">Overview</h1>
+            </div>
+            <div class="topbar-actions">
+                <div class="device-selector" id="deviceSelector">
+                    <button class="device-btn" aria-haspopup="listbox" aria-expanded="false" aria-controls="deviceList">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                        <span id="selectedDevice">Select Device</span>
+                        <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                            <polyline points="6 9 12 15 18 9"/>
+                        </svg>
+                    </button>
+                    <ul class="device-dropdown" id="deviceList" role="listbox" aria-label="Select device"></ul>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Switch to light mode" aria-pressed="false">
+                    <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <circle cx="12" cy="12" r="5"/>
+                        <line x1="12" y1="1" x2="12" y2="3"/>
+                        <line x1="12" y1="21" x2="12" y2="23"/>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                        <line x1="1" y1="12" x2="3" y2="12"/>
+                        <line x1="21" y1="12" x2="23" y2="12"/>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                    </svg>
+                    <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+                    </svg>
+                </button>
+                <div class="user-menu">
+                    <button class="user-btn" aria-haspopup="menu" aria-expanded="false">
+                        <div class="user-avatar" aria-hidden="true">MP</div>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content" id="mainContent" role="main">
+            <section id="overview-section" class="dashboard-section active" aria-labelledby="overview-title">
+                <header class="section-header">
+                    <h2 id="overview-title">System Overview</h2>
+                    <div class="section-actions">
+                        <span class="last-updated" id="lastUpdated">Last updated: --</span>
+                        <button class="btn btn-secondary refresh-btn" id="refreshOverview" aria-label="Refresh data">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <polyline points="23 4 23 10 17 10"/>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                            </svg>
+                            Refresh
+                        </button>
+                    </div>
+                </header>
+                <div class="metrics-grid" id="metricsGrid"></div>
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <h3>CPU Usage History</h3>
+                        <canvas id="cpuHistoryChart" aria-label="CPU usage over time"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Memory Usage History</h3>
+                        <canvas id="memoryHistoryChart" aria-label="Memory usage over time"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="monitoring-section" class="dashboard-section" aria-labelledby="monitoring-title">
+                <header class="section-header">
+                    <h2 id="monitoring-title">Live Resource Monitoring</h2>
+                    <div class="section-actions">
+                        <div class="refresh-control">
+                            <label for="refreshInterval" class="sr-only">Refresh interval</label>
+                            <select id="refreshInterval" aria-label="Refresh interval">
+                                <option value="3000">3 seconds</option>
+                                <option value="5000" selected>5 seconds</option>
+                                <option value="10000">10 seconds</option>
+                                <option value="30000">30 seconds</option>
+                            </select>
+                        </div>
+                    </div>
+                </header>
+                <div class="live-metrics">
+                    <div class="metric-card live large cpu">
+                        <div class="metric-header">
+                            <span class="metric-label">CPU</span>
+                            <span class="metric-value" id="liveCpu">--%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" id="cpuBar" style="width: 0%"></div>
+                        </div>
+                        <canvas id="liveCpuChart" class="mini-chart" aria-label="Live CPU usage"></canvas>
+                    </div>
+                    <div class="metric-card live large memory">
+                        <div class="metric-header">
+                            <span class="metric-label">Memory</span>
+                            <span class="metric-value" id="liveMemory">--%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" id="memoryBar" style="width: 0%"></div>
+                        </div>
+                        <canvas id="liveMemoryChart" class="mini-chart" aria-label="Live memory usage"></canvas>
+                    </div>
+                    <div class="metric-card live large disk">
+                        <div class="metric-header">
+                            <span class="metric-label">Disk</span>
+                            <span class="metric-value" id="liveDisk">--%</span>
+                        </div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" id="diskBar" style="width: 0%"></div>
+                        </div>
+                        <canvas id="liveDiskChart" class="mini-chart" aria-label="Live disk usage"></canvas>
+                    </div>
+                    <div class="metric-card live large gpu">
+                        <div class="metric-header">
+                            <span class="metric-label">GPU</span>
+                            <span class="metric-value" id="liveGpu">--</span>
+                        </div>
+                        <div class="gpu-details" id="gpuDetails">GPU not detected</div>
+                        <div class="metric-bar">
+                            <div class="bar-fill" id="gpuBar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="charts-row">
+                    <div class="chart-card full-width">
+                        <h3>Real-time Resource Trends</h3>
+                        <canvas id="liveTrendsChart" aria-label="Real-time resource trends"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="processes-section" class="dashboard-section" aria-labelledby="processes-title">
+                <header class="section-header">
+                    <h2 id="processes-title">Process Manager</h2>
+                    <div class="section-actions">
+                        <div class="search-box">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                                <circle cx="11" cy="11" r="8"/>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+                            </svg>
+                            <input type="text" id="processSearch" placeholder="Search processes..." aria-label="Search processes">
+                        </div>
+                        <div class="filter-group">
+                            <select id="processSort" aria-label="Sort by">
+                                <option value="cpu_percent">CPU %</option>
+                                <option value="memory_percent">Memory %</option>
+                                <option value="pid">PID</option>
+                                <option value="name">Name</option>
+                            </select>
+                            <select id="processFilter" aria-label="Filter by resource">
+                                <option value="">All Processes</option>
+                                <option value="high_cpu">High CPU (>25%)</option>
+                                <option value="high_memory">High Memory (>25%)</option>
+                            </select>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <table class="process-table" id="processTable" role="grid" aria-label="Process list">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-sort="name">Name</th>
+                                <th scope="col" data-sort="pid">PID</th>
+                                <th scope="col" data-sort="cpu_percent">CPU %</th>
+                                <th scope="col" data-sort="memory_percent">Memory %</th>
+                                <th scope="col" data-sort="memory_used">Memory</th>
+                                <th scope="col" data-sort="status">Status</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="processTableBody"></tbody>
+                    </table>
+                    <div class="empty-state" id="processEmptyState" hidden>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                            <rect x="2" y="3" width="20" height="14" rx="2"/>
+                            <path d="M8 21h8M12 17v4"/>
+                        </svg>
+                        <p>No processes found</p>
+                    </div>
+                </div>
+                <div class="table-footer">
+                    <span class="row-count" id="processCount">0 processes</span>
+                </div>
+            </section>
+
+            <section id="ai-section" class="dashboard-section" aria-labelledby="ai-title">
+                <header class="section-header">
+                    <h2 id="ai-title">AI Intelligence Center</h2>
+                    <div class="section-actions">
+                        <span class="ai-disclaimer">ML predictions are advisory, not guaranteed diagnoses</span>
+                    </div>
+                </header>
+                <div class="ai-grid">
+                    <div class="ai-card health-score">
+                        <h3>System Health Score</h3>
+                        <div class="score-circle" id="healthScoreCircle">
+                            <span class="score-value" id="healthScore">--</span>
+                        </div>
+                        <div class="score-label" id="healthLabel">Analyzing...</div>
+                        <div class="score-factors" id="healthFactors"></div>
+                    </div>
+                    <div class="ai-card anomaly-status">
+                        <h3>Anomaly Detection</h3>
+                        <div class="anomaly-indicator" id="anomalyIndicator">
+                            <span class="anomaly-dot" aria-hidden="true"></span>
+                            <span class="anomaly-text" id="anomalyText">Normal</span>
+                        </div>
+                        <p class="anomaly-reason" id="anomalyReason">No anomalies detected</p>
+                        <div class="anomaly-score">Score: <span id="anomalyScore">0.00</span></div>
+                    </div>
+                    <div class="ai-card recommendations">
+                        <h3>Recommendations</h3>
+                        <ul id="recommendationsList"></ul>
+                    </div>
+                </div>
+                <div class="pattern-analysis ai-card">
+                    <div class="pattern-header">
+                        <div>
+                            <h3>Resource Usage Pattern Analysis</h3>
+                            <p id="patternSummary">Waiting for historical data...</p>
+                        </div>
+                        <span class="pattern-status" id="patternStatus">Waiting</span>
+                    </div>
+                    <div class="pattern-grid">
+                        <div>
+                            <h4>Detected Patterns</h4>
+                            <ul id="patternList" class="pattern-list"></ul>
+                        </div>
+                        <div>
+                            <h4>Top Memory Consumers</h4>
+                            <ul id="patternProcesses" class="pattern-list"></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="ai-history">
+                    <h3>Recent Anomaly Events</h3>
+                    <div class="table-container">
+                        <table class="alert-table" id="anomalyTable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    <th>Type</th>
+                                    <th>Severity</th>
+                                    <th>Message</th>
+                                </tr>
+                            </thead>
+                            <tbody id="anomalyTableBody"></tbody>
+                        </table>
+                        <div class="empty-state" id="anomalyEmptyState" hidden>
+                            <p>No anomaly events recorded</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="history-section" class="dashboard-section" aria-labelledby="history-title">
+                <header class="section-header">
+                    <h2 id="history-title">Resource History</h2>
+                    <div class="section-actions">
+                        <div class="time-range-selector">
+                            <label for="historyRange" class="sr-only">Time range</label>
+                            <select id="historyRange" aria-label="Time range">
+                                <option value="1">Last Hour</option>
+                                <option value="6">Last 6 Hours</option>
+                                <option value="24" selected>Last 24 Hours</option>
+                                <option value="168">Last 7 Days</option>
+                            </select>
+                        </div>
+                    </div>
+                </header>
+                <div class="charts-row">
+                    <div class="chart-card">
+                        <h3>CPU Usage Trend</h3>
+                        <canvas id="historyCpuChart" aria-label="CPU usage trend"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Memory Usage Trend</h3>
+                        <canvas id="historyMemoryChart" aria-label="Memory usage trend"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Disk Usage Trend</h3>
+                        <canvas id="historyDiskChart" aria-label="Disk usage trend"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section id="settings-section" class="dashboard-section" aria-labelledby="settings-title">
+                <header class="section-header">
+                    <h2 id="settings-title">Settings</h2>
+                </header>
+                <div class="settings-grid">
+                    <div class="settings-card">
+                        <h3>Appearance</h3>
+                        <div class="setting-item">
+                            <label class="toggle" for="themeSetting">
+                                <span>Dark Mode</span>
+                                <input type="checkbox" id="themeSetting" checked aria-label="Enable dark mode">
+                                <span class="toggle-slider" aria-hidden="true"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Monitoring</h3>
+                        <div class="setting-item">
+                            <label for="monitoringInterval">Refresh Interval</label>
+                            <select id="monitoringInterval" aria-label="Monitoring refresh interval">
+                                <option value="3000">3 seconds</option>
+                                <option value="5000" selected>5 seconds</option>
+                                <option value="10000">10 seconds</option>
+                                <option value="30000">30 seconds</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Data Retention</h3>
+                        <div class="setting-item">
+                            <label for="retentionDays">Retention Period (days)</label>
+                            <input type="number" id="retentionDays" value="30" min="1" max="365" aria-label="Data retention days">
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Agent Connection</h3>
+                        <div class="setting-item">
+                            <label>Status</label>
+                            <div class="connection-badge" id="agentConnectionBadge">
+                                <span class="badge-indicator" aria-hidden="true"></span>
+                                <span class="badge-text">Disconnected</span>
+                            </div>
+                        </div>
+                        <div class="setting-item">
+                            <label>Backend URL</label>
+                            <code id="backendUrl">--</code>
+                        </div>
+                        <div class="setting-item">
+                            <label>Device ID</label>
+                            <code id="deviceIdDisplay">--</code>
+                        </div>
+                        <div class="setting-item">
+                            <label for="adminToken">Process control token</label>
+                            <input type="password" id="adminToken" autocomplete="off" placeholder="Enter admin token">
+                            <small>Required only for confirmed process termination.</small>
+                        </div>
+                    </div>
+                    <div class="settings-card">
+                        <h3>Danger Zone</h3>
+                        <button class="btn btn-danger" id="clearDataBtn">Clear All Local Data</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" hidden>
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <header class="modal-header">
+                <h3 id="modalTitle">Confirm Action</h3>
+                <button class="modal-close" aria-label="Close modal">&times;</button>
+            </header>
+            <p id="modalMessage"></p>
+            <footer class="modal-footer">
+                <button class="btn btn-secondary modal-cancel">Cancel</button>
+                <button class="btn btn-danger modal-confirm">Confirm</button>
+            </footer>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer" aria-live="polite" aria-label="Notifications"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <script src="/static/js/theme.js"></script>
+    <script src="/static/js/api.js"></script>
+    <script src="/static/js/charts.js"></script>
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

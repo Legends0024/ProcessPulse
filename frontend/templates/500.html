@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500 - Server Error | ProcessPulse</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/theme.css">
+    <link rel="stylesheet" href="/static/css/layout.css">
+    <link rel="stylesheet" href="/static/css/components.css">
+    <link rel="icon" type="image/svg+xml" href="/static/assets/favicon.svg">
+    <style>
+        .error-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--spacing-xl);
+        }
+        .error-content {
+            text-align: center;
+            max-width: 400px;
+        }
+        .error-code {
+            font-size: 8rem;
+            font-weight: 700;
+            font-family: var(--font-mono);
+            color: var(--color-accent-red);
+            line-height: 1;
+            margin-bottom: var(--spacing-md);
+        }
+        .error-message {
+            font-size: 1.5rem;
+            color: var(--color-text-primary);
+            margin-bottom: var(--spacing-sm);
+        }
+        .error-description {
+            color: var(--color-text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+        .error-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-page">
+        <div class="error-content">
+            <div class="error-code">500</div>
+            <h1 class="error-message">Server Error</h1>
+            <p class="error-description">Something went wrong on our end. Please try again later.</p>
+            <div class="error-actions">
+                <a href="/" class="btn btn-primary">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <line x1="19" y1="12" x2="5" y2="12"/>
+                        <polyline points="12 19 5 12 12 5"/>
+                    </svg>
+                    Go Home
+                </a>
+                <button class="btn btn-secondary" onclick="location.reload()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <polyline points="23 4 23 10 17 10"/>
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                    </svg>
+                    Retry
+                </button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/theme.js"></script>
+</body>
+</html>

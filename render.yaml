@@ -1,0 +1,53 @@
+services:
+  - type: web
+    name: processpulse-backend
+    env: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --timeout 120 app:app
+    healthCheckPath: /api/health
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: processpulse-db
+          property: connectionString
+      - key: AGENT_TOKEN
+        generateValue: true
+      - key: DEVICE_REGISTRATION_TOKEN
+        generateValue: true
+      - key: DEVICE_ADMIN_TOKEN
+        generateValue: true
+      - key: ALLOW_LEGACY_AGENT_TOKEN
+        value: "0"
+      - key: HEARTBEAT_TIMEOUT_SECONDS
+        value: "30"
+      - key: AGENT_INTERVAL
+        value: "5"
+      - key: API_ENDPOINT
+        value: https://processpulse-backend.onrender.com
+      - key: ML_CONTAMINATION
+        value: "0.1"
+      - key: ML_N_ESTIMATORS
+        value: "100"
+      - key: LOG_LEVEL
+        value: "INFO"
+      - key: RATE_LIMIT_DEFAULT
+        value: "200 per minute"
+      - key: RATE_LIMIT_AGENT
+        value: "60 per minute"
+      - key: DATA_RETENTION_DAYS
+        value: "30"
+      - key: CORS_ORIGINS
+        value: "https://processpulse-frontend.onrender.com"
+
+databases:
+  - name: processpulse-db
+    databaseName: processpulse
+    user: processpulse
+    plan: free
